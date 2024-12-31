@@ -6,13 +6,17 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Laravel\Socialite\Facades\Socialite;
+use Laravel\Socialite\Two\InvalidStateException;
 
 class AuthController extends Controller
 {
 
     public function index(Request $request)
     {
-        $user = Socialite::with('google')->user();
+        $request->session()->put('state', $request->get('state'));
+
+        // dd(session());
+        $user = Socialite::driver('google')->user();
         
         $existUser = User::where("UUID", $user->id)->first();
         
@@ -45,7 +49,7 @@ class AuthController extends Controller
     private function redirectLogin($user)
     {
         Auth::login($user);
-        return redirect('/profile')->with('status', 'Successfully <strong>Login</strong>');
+        return redirect("/profile/". Auth::user()->UUID)->with('status', 'Successfully <strong>Login</strong>');
     }
 
     public function logout()

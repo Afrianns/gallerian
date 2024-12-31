@@ -27,7 +27,7 @@ Route::get('/gallery', function () {
 
 // Third party authentication with google
 Route::get('/auth/redirect', function () {
-    return Socialite::with('google')->redirect();
+    return Socialite::driver('google')->redirect();
 });
  
 Route::get('/auth/google/callback', [AuthController::class, 'index']);
