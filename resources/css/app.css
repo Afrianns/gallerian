@@ -1,0 +1,64 @@
+@import url("https://fonts.googleapis.com/css2?family=Kalnia:wght@100..700&family=Kanit:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Kumbh+Sans:wght@100..900&display=swap");
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* {
+    @apply text-darkPurple;
+}
+
+.upload-menu {
+    @apply hover:bg-lightTeal/25 rounded-md py-1 px-4;
+}
+
+.max-w {
+    @apply max-w-[1080px] mx-auto px-0 sm:px-2;
+}
+
+.form-input-style {
+    @apply w-full bg-gray-100 border border-gray-200 hover:border-gray-500 rounded-sm p-0;
+}
+
+.c-hover {
+    @apply hover:border-purple-500 hover:bg-purple-100;
+}
+
+.indicator {
+    @apply border-purple-500 bg-purple-100;
+}
+
+.title-font {
+    @apply text-xl mb-3 text-gray-500;
+}
+
+.image-container {
+    @apply border-2 border-dashed bg-gray-50 border-gray-400 rounded p-2 overflow-hidden cursor-pointer hover:border-solid;
+}
+
+.icon-style {
+    @apply mx-auto inline-block w-14 h-14 opacity-75 fill-darkPurple;
+}
+
+.profile-input {
+    @apply bg-purple-50 w-full py-2 px-3 rounded border-gray-400 hover:border-purple-600;
+}
+
+.grid-sizer,
+.grid-item {
+    width: 33%;
+}
+
+.grid-item {
+    margin-bottom: 5px;
+}
+
+/* admin */
+
+.admin-nav {
+    @apply text-purple-950/85 fill-purple-950/85 text-center cursor-pointer py-2 px-5 rounded-full;
+}
+
+.btn-style {
+    @apply bg-teal py-1 px-6 hover:bg-cyan-400;
+}
