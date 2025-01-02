@@ -15,7 +15,7 @@
                     </div>
                 </div>
             </section>
-            <section class="bg-white shadow-sm rounded-s max-w-[400px] h-full overflow-y-auto transition-all duration-200 ease-in sticky top-0 justify-start w-56" :style="'width:' +sideWidth+'%'" x-cloak>
+            <section class="bg-white shadow-sm rounded-s max-w-[400px] h-svh overflow-y-scroll transition-all duration-200 ease-in sticky top-0 justify-start w-56" :style="'width:' +sideWidth+'%'" x-cloak>
                 <div class="p-5">
                     <h2>Detail Image</h2>
                     <div class="w-full h-56 bg-red-100 bg-cover bg-center bg-no-repeat mt-5" :style="`background-image: url('/storage/photos/`+detail['name']+`');`">

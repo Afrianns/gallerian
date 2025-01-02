@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AuthController;
 use App\Http\Middleware\isAuthenticated;
+use App\Livewire\Gallery\Gallery;
 use Illuminate\Support\Facades\Route;
 
 use Laravel\Socialite\Facades\Socialite;
@@ -21,9 +22,7 @@ use App\Livewire\Superadmin\Rejected;
 
 Route::get('/', Home::class);
 
-Route::get('/gallery', function () {
-    return redirect('/');
-});
+Route::get('/gallery', Gallery::class);
 
 // Third party authentication with google
 Route::get('/auth/redirect', function () {

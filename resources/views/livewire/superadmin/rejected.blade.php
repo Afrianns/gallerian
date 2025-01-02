@@ -7,11 +7,11 @@
                         @foreach ($all_rejected_images as $image)
                         <section x-on:click="detailInfo({{$image->id}})" class="flex mb-2 bg-white p-2 rounded-xl cursor-pointer border border-gray-300 hover:border-purple-600 hover:bg-purple-100 shadow-sm min-h-36 h-full">
                             <div class="flex w-2/3">
-                                <div class="bg-gray-200 cursor-pointer w-1/5 h-full rounded-md bg-center bg-cover" style="background-image: url('{{ asset('/storage/photos/'. $image->name) }}')"></div>
+                                <div class="bg-gray-200 cursor-pointer w-full max-w-40 h-full rounded-md bg-center bg-cover" style="background-image: url('{{ asset('/storage/photos/'. $image->name) }}')"></div>
                                     <div class="ml-3 text-gray-600 flex flex-col justify-between">
                                     <span class="text-gray-500 text-sm">{{ $image->created_at->diffForHumans() }}</span>
                                     <div class="my-2">
-                                        <h2>{{ $image->description }}</h2>
+                                        <h2>{{ Str::of($image->description)->words(10,'...') }}</h2>
                                         <p class="text-sm text-gray-500" x-on:click.stop>by <a href="/profile/{{ $image->user->UUID }}" class="text-sm text-gray-500 hover:underline" wire:navigate>{{ $image->user->name }}</a></p>
                                     </div>
                                     <div class="opacity-80 flex gap-x-1 border border-red-400 py-1 px-3 rounded-full text-sm items-center w-fit bg-red-100">

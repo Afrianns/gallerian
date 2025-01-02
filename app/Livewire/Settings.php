@@ -26,9 +26,17 @@ class Settings extends Component
     public $newAvatar = '';
 
 
-    public function mount()
+    public function mount($UUID)
     {
-        $this->avatar = Auth::user()->avatar;
+
+        $user = User::where("UUID", $UUID)->first();
+
+        if(!isset($user) && Auth::user()->UUID != $UUID){
+            session()->flash('status', 'There is an <strong>error occur.</strong>');
+            return $this->redirect('/');
+        }
+
+        $this->avatar = $user->avatar;
     }
 
     public function upload(Request $request)
@@ -42,7 +50,9 @@ class Settings extends Component
             'website'  => "nullable|url:http,https|max:50",
         ]);
 
-        $user_data = User::where('UUID', Auth::user()->UUID)->first();
+        $UUID = Auth::user()->UUID;
+
+        $user_data = User::where('UUID', $UUID)->first();
 
         // get current user avatar
         $prev_avatar_path = $user_data->avatar;
@@ -75,9 +85,19 @@ class Settings extends Component
         }
         
         $user_data->name = $request->name;        
-        $user_data->save();
+        $res = $user_data->save();
+        
+        if($res){
+            $this->redirectMethod();
+        }
+        // dd($res, $user_data,'/profile/'. $UUID);
+ 
+    }
 
-        return redirect('/profile');
+    private function redirectMethod()
+    {
+        session()->flash('status', 'Post successfully updated.');
+        return $this->redirect("/", true);
     }
 
     public function render()

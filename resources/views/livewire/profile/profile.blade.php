@@ -57,7 +57,7 @@
         @auth
         @if ($profile->UUID === Auth::user()->UUID)
             <div x-on:click="uploader">
-                <livewire:component.editor-link info="update banner">
+                <livewire:components.editor-link info="update banner">
             </div>                
         @endif
         @endauth
@@ -67,8 +67,8 @@
     <div class="bg-white border border-gray-200 h-fit pb-10 pt-16 text-center relative rounded">
         @auth
         @if ($profile->UUID === Auth::user()->UUID)
-        <a wire:navigate href="/profile/settings">
-            <livewire:component.editor-link>
+        <a wire:navigate href="/profile/{{ Auth::user()->UUID }}/settings">
+            <livewire:components.editor-link>
         </a>            
         @endif
         @endauth
@@ -130,28 +130,6 @@
     @endif
 </main>
 
-<script>
-    
-document.addEventListener("livewire:navigated", () => {
-    let grid = document.querySelector(".grid");
-
-    if (grid != null) {
-        let M = new Masonry(grid, {
-            itemSelector: ".grid-item",
-            columnWidth: ".grid-sizer",
-            gutter: 5,
-            percentPosition: true,
-            resize: true
-        });
-
-        imagesLoaded(grid).on("progress", function () {
-            M.layout();
-        });
-    }
-});
-
-</script>
-
 @script
 <script>
     Alpine.data('bannerUploader', () => ({
@@ -163,7 +141,7 @@ document.addEventListener("livewire:navigated", () => {
         progress: 0,
 
         uploader(){
-            $dispatch('check');
+            $dispatch('overflowhid');
             this.popup = !this.popup;
         },
 

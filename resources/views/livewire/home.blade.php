@@ -1,10 +1,12 @@
 <main class="mx-auto" x-data='home' x-cloak>
     <section class="h-[500px] w-full bg-gradient-to-b  from-[#05FFF7] to-purple-500 relative overflow-hidden">
         <div class="max-w flex flex-col justify-center text-center align-middle h-full items-center z-10 relative">
-            <h1 class="text-5xl font-kumbhSans font-extrabold w-4/5 leading-snug  mix-blend-darken">FIND THE MOST CREATIVE DESIGN YOU HAVE EVER SEEN </h1>
+            <h1 class="text-5xl font-kumbhSans font-extrabold w-4/5 leading-snug  mix-blend-darken text-white">FIND THE MOST CREATIVE DESIGN YOU HAVE EVER SEEN </h1>
             <div class="flex justify-center gap-x-4 mt-5 items-center">
-                {{-- <a class="btn-style" href="/auth/redirect">Getting Started</a> --}}
-                <p class="hover:underline cursor-pointer">Explore Gallery</p>
+                @if (!Auth::check())
+                    <a class="btn-style" href="/auth/redirect">Getting Started</a>
+                @endif
+                <a href="/gallery" class="hover:underline cursor-pointer" wire:navigate>Explore Gallery</a>
             </div>
         </div>
         <div class="absolute top-0 flex justify-between gap-2 w-full mix-blend-overlay">
@@ -46,17 +48,19 @@
         </div>
         <div class="bg-black/10 top-0 left-0 right-0 bottom-0 absolute"></div>
         <div class="flex justify-center items-center h-full relative flex-col uppercase z-10"> 
-            <h2 class="font-semibold text-3xl">Join with Million Artists around the World</h2>
+            <h2 class="font-semibold text-3xl text-white">Join with Million Artists around the World</h2>
             <p class="text-2xl font-semibold text-green-500">It's Free</p>
 
-            {{-- <a class="btn-style mt-8" href="/auth/redirect">
-                Register an Account
-            </a> --}}
+            @if (!Auth::check())
+                <a class="btn-style mt-8" href="/auth/redirect">
+                    Register an Account
+                </a>
+            @endif
         </div>
     </section>
 
     <footer class="my-16 text-center">
-        <p>Gallerian by <a href="http://hanif.rf.gd/" class="hover:underline">HanifNA</a></p>
+        <p>Gallerian by <a href="http://hanifna.rf.gd/" target="_blank" class="hover:underline">HanifNA</a></p>
     </footer>
 </main>
 

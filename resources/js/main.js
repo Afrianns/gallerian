@@ -4,6 +4,8 @@ document.addEventListener("livewire:init", () => {
         hideSession: true,
         isHidden: false,
         hideScrollbar: false,
+        isGallery: false,
+        isPosPass: false,
 
         profile() {
             this.open = !this.open;
@@ -33,6 +35,20 @@ document.addEventListener("livewire:init", () => {
 
         hideScroll() {
             this.isHidden = !this.isHidden;
+        },
+
+        galleryState() {
+            this.isGallery = true;
+        },
+
+        setNavState() {
+            if (this.isGallery) {
+                if (window.scrollY >= 400) {
+                    this.isPosPass = true;
+                } else {
+                    this.isPosPass = false;
+                }
+            }
         },
 
         setHideScrollbar() {

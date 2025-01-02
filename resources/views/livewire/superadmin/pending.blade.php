@@ -23,6 +23,7 @@
             </form>
         </div>
     </div>
+
     <div class="flex w-full items-start">
         <div class="max-w w-full">
             @foreach ($reviewableImage as $image)
@@ -37,16 +38,18 @@
                         </div>
                     </div>
                 </div>
-                <div  class="w-1/3 flex gap-x-5">
-                    <div x-on:click.stop wire:click="approveImage({{ $image->id }})" class="p-2 bg-green-100 hover:bg-green-200 ml-auto my-auto rounded-full w-fit" title="Approve Image">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" class="fill-green-500"><path d="M12 2C6.486 2 2 6.486 2 12s4.486 10 10 10 10-4.486 10-10S17.514 2 12 2zm0 18c-4.411 0-8-3.589-8-8s3.589-8 8-8 8 3.589 8 8-3.589 8-8 8z"></path><path d="M9.999 13.587 7.7 11.292l-1.412 1.416 3.713 3.705 6.706-6.706-1.414-1.414z"></path></svg>
+                <template x-if="!isSuccess">
+                    <div  class="w-1/3 flex gap-x-5">
+                        <div x-on:click.stop wire:click="approveImage({{ $image->id }})" class="p-2 bg-green-100 hover:bg-green-200 ml-auto my-auto rounded-full w-fit" title="Approve Image">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" class="fill-green-500"><path d="M12 2C6.486 2 2 6.486 2 12s4.486 10 10 10 10-4.486 10-10S17.514 2 12 2zm0 18c-4.411 0-8-3.589-8-8s3.589-8 8-8 8 3.589 8 8-3.589 8-8 8z"></path><path d="M9.999 13.587 7.7 11.292l-1.412 1.416 3.713 3.705 6.706-6.706-1.414-1.414z"></path></svg>
+                        </div>
+                        
+                        <hr class="w-[1px] h-1/2 my-auto bg-gray-300">
+                        <div x-on:click.stop x-on:click="rejected({{ $image->id }},{{ $image->user->id }})" class="p-2 bg-red-100 hover:bg-red-200 my-auto rounded-full mr-3 w-fit" title="Reject Image">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" class="fill-red-500"><path d="M9.172 16.242 12 13.414l2.828 2.828 1.414-1.414L13.414 12l2.828-2.828-1.414-1.414L12 10.586 9.172 7.758 7.758 9.172 10.586 12l-2.828 2.828z"></path><path d="M12 22c5.514 0 10-4.486 10-10S17.514 2 12 2 2 6.486 2 12s4.486 10 10 10zm0-18c4.411 0 8 3.589 8 8s-3.589 8-8 8-8-3.589-8-8 3.589-8 8-8z"></path></svg>
+                        </div>
                     </div>
-                    
-                    <hr class="w-[1px] h-1/2 my-auto bg-gray-300">
-                    <div x-on:click.stop x-on:click="rejected({{ $image->id }},{{ $image->user->id }})" class="p-2 bg-red-100 hover:bg-red-200 my-auto rounded-full mr-3 w-fit" title="Reject Image">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" class="fill-red-500"><path d="M9.172 16.242 12 13.414l2.828 2.828 1.414-1.414L13.414 12l2.828-2.828-1.414-1.414L12 10.586 9.172 7.758 7.758 9.172 10.586 12l-2.828 2.828z"></path><path d="M12 22c5.514 0 10-4.486 10-10S17.514 2 12 2 2 6.486 2 12s4.486 10 10 10zm0-18c4.411 0 8 3.589 8 8s-3.589 8-8 8-8-3.589-8-8 3.589-8 8-8z"></path></svg>
-                    </div>
-                </div>
+                </template>
             </section>
             @endforeach
         </div>
@@ -75,12 +78,15 @@
         },
 
         hideScroll: false,
+        isSuccess: false,
 
         initialized(){
             
             $wire.on('status-sending', (data) => {
 
-                this.messagePopup()
+                if(data.status[0] == 'success'){
+                    this.isSuccess = true;
+                }
 
                 const Toast = Swal.mixin({
                     toast: true,

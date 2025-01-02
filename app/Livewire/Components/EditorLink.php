@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Livewire\Component;
+namespace App\Livewire\Components;
 
 use Livewire\Component;
 
@@ -15,6 +15,6 @@ class EditorLink extends Component
 
     public function render()
     {
-        return view('livewire.component.editor-link');
+        return view('livewire.components.editor-link');
     }
 }

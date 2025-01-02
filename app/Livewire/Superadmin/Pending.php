@@ -17,6 +17,8 @@ class Pending extends Component
     #[Validate('required|min:5')]
     public $message;
 
+    public $prevIndex = null; 
+
     public function mount()
     {
         $this->getPendingImage();
@@ -26,18 +28,27 @@ class Pending extends Component
     {
         $this->reviewableImage = Image::where('is_reviewed', 'pending')->get();
     }
-    
-    #[On('reject-event')]
-    public function rejectImage($index)
-    {
-        dump('rejected', $index);
-    }
-    
+
     #[On('approve-event')]
     public function approveImage($index)
     {
         // $message = new RejectedInfo;
-        dump('approved', $index);
+
+        if(!isset($index)) return;
+
+        $image = Image::find($index);
+
+        if(isset($image)){
+            $image->is_reviewed = "approved";
+            $result = $image->update();
+
+            if($result){
+                $this->redirectInfos('success',"Successfully approved");
+                $this->redirect('/su-admin', true);
+            } else{
+                $this->redirectInfos('error',"Approve Failed");
+            }
+        }
     }
 
     public function setRejectMessage($imageId)

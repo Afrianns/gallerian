@@ -55,7 +55,7 @@
                 </template>
             </section>
         </template>
-        <template x-if="isPending==1">
+        <template x-if="isPending==1 && !isSuccess">
             <template x-if="detailImage.image">
                 <div class="flex justify-between">
                     <button class="bg-green-400 hover:bg-green-300 py-1 px-5 rounded-full" wire:click="approveImage(detailImage.image['id'])">Accept</button>
