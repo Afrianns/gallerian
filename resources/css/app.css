@@ -62,3 +62,7 @@
 .btn-style {
     @apply bg-teal py-1 px-6 hover:bg-cyan-400;
 }
+
+#head {
+    height: 100vh;
+}

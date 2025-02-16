@@ -11,12 +11,14 @@
     </head>
     <body id="head" class="bg-lightTeal text-darkPurple font-kanit" :class="{'overflow-hidden' : isHidden}" x-data="nav" @overflowhid="hideScroll" @gallery="galleryState" x-on:scroll.window="setNavState">
         @if (request()->session()->has("status"))
-            <div class="bg-orange-400 py-2 px-5 transition-all duration-200" x-show="hideSession" x-init="setTimeout(() => hideSession = false, 3000)">
+            <span x-init="showStatus('{{ request()->session()->get('status')[0] }}','{{ request()->session()->get('status')[1] }}')"></span>
+            {{-- <div class="bg-orange-400 py-2 px-5 transition-all duration-200 absolute z-20 w-full"  x-show="hideSession" x-init="setTimeout(() => hideSession = false, 3000)">
                 <p class="text-orange-900">{!! request()->session()->get('status') !!}</p>
-            </div>
+            </div> --}}
         @endif
         {{-- sticky top-0 z-10 --}}
-        <nav class="py-4 relative" :class="{ 'text-white bg-transparent z-20': isGallery && !isPosPass, 'bg-white shadow-sm': !isGallery || isPosPass, 'sticky top-0 z-10' : isPosPass }">
+        {{-- <p class="fixed top-0 bg-white w-50 h-10 z-20">hello</p> --}}
+        <nav class="py-4 w-full" :class="{ 'text-white bg-transparent relative z-20': isGallery && !isPosPass, 'bg-white shadow-sm': !isGallery || isPosPass, 'fixed top-0 z-10' : isPosPass }">
             <div class="flex justify-between px-2 max-w items-center">
                 <h1 class="font-kalnia font-bold text-3xl leading-normal" :class="{'text-white' : isGallery && !isPosPass }">Gallerian</h1>
                 <template x-if="isGallery && isPosPass">

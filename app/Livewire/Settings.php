@@ -32,7 +32,7 @@ class Settings extends Component
         $user = User::where("UUID", $UUID)->first();
 
         if(!isset($user) && Auth::user()->UUID != $UUID){
-            session()->flash('status', 'There is an <strong>error occur.</strong>');
+            session()->flash('status', ['error', 'There is an <strong>error occur.</strong>']);
             return $this->redirect('/');
         }
 
@@ -96,7 +96,7 @@ class Settings extends Component
 
     private function redirectMethod()
     {
-        session()->flash('status', 'Post successfully updated.');
+        session()->flash('status', ['success','Post successfully updated.']);
         return $this->redirect("/", true);
     }
 

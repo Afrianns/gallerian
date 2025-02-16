@@ -90,11 +90,10 @@
         @endif
         <ul class="flex justify-center gap-x-10 mt-5 text-md">
             <li class="flex gap-x-1 font-medium">
+                <span>{{ count($images) }}</span>
                 @if(count($images) > 1)
-                    <span>{{ count($images) }}</span>
                     <p>Images</p>
                 @else
-                    <span>0</span>
                     <p>Image</p>
                 @endif
             </li>
@@ -104,8 +103,8 @@
             </li>
         </ul>
     </div>
-
-    @if (count($images) > 0)
+    <livewire:components.images-showcase :id="$profile->id"/>
+    {{-- @if (count($images) > 0)
         <div class="grid mt-16">
             @foreach ($images as $image)
                 <div class="grid-sizer"></div>
@@ -127,7 +126,7 @@
             <h1 class="font-semibold uppercase opacity-75 text-xl">There are no published images</h1>
             <p class="text-md opacity-50">Please upload best images you have ever created and submit for review; show your creativity</p>
         </div>
-    @endif
+    @endif --}}
 </main>
 
 @script

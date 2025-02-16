@@ -49,7 +49,7 @@ class AuthController extends Controller
     private function redirectLogin($user)
     {
         Auth::login($user);
-        return redirect("/profile/". Auth::user()->UUID)->with('status', 'Successfully <strong>Login</strong>');
+        return redirect("/profile/". Auth::user()->UUID)->with('status', ['success','Successfully <strong>Login</strong>']);
     }
 
     public function logout()
@@ -60,6 +60,6 @@ class AuthController extends Controller
         
         session()->regenerateToken();
 
-        return redirect('/')->with('status','Successfully <strong>Logout</strong>');
+        return redirect('/')->with('status',['success','Successfully <strong>Logout</strong>']);
     }
 }

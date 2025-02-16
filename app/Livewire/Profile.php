@@ -2,6 +2,7 @@
 
 namespace App\Livewire;
 
+use App\Livewire\Components\ImagesShowcase;
 use App\Models\User;
 use Illuminate\Http\Client\Request;
 use Illuminate\Support\Arr;
@@ -31,15 +32,13 @@ class Profile extends Component
             $this->redirect('/', true); 
         } else{
             $this->profile = $user;
-            $this->images = $user->Image;
+            $this->images = $user->Image->where('is_reviewed', "approved");
         }
     }
 
     public function uploadBanner()
     {
-        
-        $message = ['status' => "No Image Provided"];
-
+    
         // check if user upload image banner otherwise skip it
         if(isset($this->banner)){
 
@@ -65,15 +64,15 @@ class Profile extends Component
                     $old_path = explode('/',$prev_banner);
                     Storage::disk('public')->delete(Arr::join(Arr::except($old_path, [0, 1]), '/'));
                 }
-
-                $message = ['status' => "Successfully <strong>Updated Banner</strong>"];
+                session()->flash('status', ["success", "Successfully <strong>Updated Banner</strong>"]);
             } else{
-
-                $message = ['status' => "Failed <strong>Updating Banner</strong>"];
+                session()->flash('status', ["error", "Failed <strong>Updating Banner</strong>"]);
             }
+        } else{
+            session()->flash('status', ["error", "No Image Provided"]);
         }
 
-        return redirect('/profile')->with($message);
+        $this->redirect('/profile/'. Auth::user()->UUID , true);
     }
 
     public function cleanModel()
