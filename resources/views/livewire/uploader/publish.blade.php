@@ -10,8 +10,8 @@
                     <h1>Approved Images</h1>
                     <div class="gap-4 mt-3">
                         @foreach ($approvedImages as $image)
-                            <section class="image-container flex gap-x-3 hover:bg-purple-100 hover:border-purple-500">
-                                <div class="w-36 h-36 bg-cover bg-center bg-no-repeat" style="background-image: url('/storage/photos/{{ $image->name }}')">
+                            <section class="image-container flex gap-x-3 hover:bg-purple-100 hover:border-purple-500 mt-3">
+                                <div class="w-full md:w-36 md:h-36 bg-cover bg-center bg-no-repeat" style="background-image: url('/storage/photos/{{ $image->name }}')">
                                 </div>
                                 <div class="w-full h-fit">
                                     <ul>

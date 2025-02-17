@@ -1,21 +1,22 @@
 <main x-data="imagesShowcase" class="my-10 pb-10">
     {{-- @php
        $curPath = request()->path(); 
-    @endphp
-    @if (request()->is("profile/*"))
+    @endphp --}}
+    {{-- @if (request()->is("profile/*"))
     <div class="flex justify-end my-5">
         <ul class="flex gap-x-2">
-            <li wire:click="sorting('desc', '{{ $curPath }}')" class="py-2 px-7 hover:bg-cyan-400 rounded cursor-pointer bg-teal border border-gray-300 p-2 text-center h-fit">Latest</li>
-            <li wire:click="sorting('asc', '{{ $curPath }}')" class="py-2 px-7 hover:bg-gray-50 rounded cursor-pointer bg-white border border-gray-300 p-2 text-center h-fit">Oldest</li>
+            <li wire:click="$dispatch('sort-type', { sortType: 'asc' })" class="py-2 px-7 hover:bg-cyan-400 rounded cursor-pointer bg-teal border border-gray-300 p-2 text-center h-fit">Latest</li>
+            <li wire:click="$dispatch('sort-type', { sortType: 'desc' })" class="py-2 px-7 hover:bg-gray-50 rounded cursor-pointer bg-white border border-gray-300 p-2 text-center h-fit">Oldest</li>
         </ul>
+        wire:click="sorting('desc', '{{ $curPath }}')"
     </div>
     @endif --}}
     @if ($images->total() > 0)
-    <div class="grid grid-cols-3 gap-x-3 mb-20">
+    <div class="grid sm:grid-cols-2 md:grid-cols-3 gap-x-3 mb-20 mx-5">
             @foreach ($images as $image)
                 @php
                     $like = false;
-                    if(!Auth::check() || Auth::user()->id != $image->user_id){
+                    if(Auth::check() && Auth::user()->id != $image->user_id){
                         $like = $image->likes($image->id)?->like;
                     }
                 @endphp
@@ -49,7 +50,9 @@
         <div x-show="detail" class="fixed top-0 left-0 right-0 bottom-0 bg-black/20 flex justify-center z-20 overflow-y-scroll" x-cloak>
             <livewire:components.gallery-image-detail :like="$like" />
         </div>
-        {{ $images->links() }}
+        <div class="mx-5">
+            {{ $images->links() }}
+        </div>
     @else
         <div class="text-center my-20">
             <div class="icon-style">
@@ -74,6 +77,10 @@
         sendData(id){
             $wire.dispatch('show-detail',{index: id})
         },
+
+        // sortingImages(type){
+        //     $wire.dispatch("sorting", {sortType: type})
+        // },
     }))
 </script>
 @endscript

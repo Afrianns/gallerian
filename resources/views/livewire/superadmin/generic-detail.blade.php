@@ -1,6 +1,9 @@
 <main x-data="rejectedDetail" x-on:detail-rejected.window="getDetailData" x-on:detail-reviewable.window="getDetailData" x-on:detail-approved.window="getDetailData">
     <div class="py-4 px-3">
-        <p class="text-lg">Detail Image</p>
+        <div class="flex justify-between items-center">
+            <h2 class="title-font">Detail Image</h2>
+            <button x-on:click="closeSide" class="cursor-pointer mb-3 hover:underline">Close</button>
+        </div>
         <p class="text-sm text-gray-500 capitalize flex items-center gap-x-1">
             By
             <template x-if="detailImage?.username">
@@ -119,6 +122,10 @@
                 this.detailImage = detailData
                 console.log(this.detailImage)
             })
+        },
+        
+        closeSide(){
+            $wire.dispatch('close-side')
         },
     }))
 </script>

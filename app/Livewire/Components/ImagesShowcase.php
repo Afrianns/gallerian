@@ -4,9 +4,12 @@ namespace App\Livewire\Components;
 
 use App\Models\Image;
 use App\Models\likes;
+use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
 use Livewire\WithPagination;
+use Illuminate\Support\Str;
+use Livewire\Attributes\On;
 
 class ImagesShowcase extends Component
 {
@@ -15,6 +18,8 @@ class ImagesShowcase extends Component
     private $images = null;
     public $currentImage = 0;
     private $id = null;
+
+    private $type;
 
     public function mount($id=null)
     {
@@ -63,27 +68,42 @@ class ImagesShowcase extends Component
 
     public function getUserImages($id)
     {
-        return Image::where('user_id', $id)->where('is_reviewed', "approved")->paginate(1);
+        return Image::where('user_id', $id)->where('is_reviewed', "approved");
     }
 
-    // public function sorting($type, $path)
-    // {
+    public function sorting($type, $path)
+    {
+
+        $this->type = $type;
+        // dd($userPath);
         
-    //     $userPath = Str::of($path)->explode('/');
+        // $userPath = Str::of($path)->explode('/');
         
-    //     // $this->images = null;
-    //     // $user = User::where('UUID', ($userPath[1]))->first();
-    //     $this->images = $this->getUserImages(User::where('UUID', ($userPath[1]))->first()->id)->orderBy('created_at', $type)->get();
-    //     // dd($this->images, User::where('UUID', ($userPath[1]))->first()->id);
-    //     // if($userPath[0] == 'profile'){
-    //     // } elseif ($userPath[0] == 'gallery'){
-    //     //     $this->images = $this->getAllImages()->orderBy('created_at',$type)->get();
-    //     // }
-    // }
+        // if($userPath && $userPath[1]){
+        //     $user = User::where('UUID', ($userPath[1]))->first();
+        //     $image = $this->getUserImages($user->id)->orderBy("created_at")->paginate(1);
+        //     dump($user->id, $image, $type);
+        // }
+        // $this->images = null;
+        // $user = User::where('UUID', ($userPath[1]))->first();
+        // $this->images = $this->getUserImages(User::where('UUID', ($userPath[1]))->first()->id)->orderBy('created_at', $type)->get();
+        // dd($this->images, User::where('UUID', ($userPath[1]))->first()->id);
+        // if($userPath[0] == 'profile'){
+        // } elseif ($userPath[0] == 'gallery'){
+        //     $this->images = $this->getAllImages()->orderBy('created_at',$type)->get();
+        // }
+    }
+
+    #[On('sort-type')]
+    public function sortingImages($sortType)
+    {
+        $this->type = $sortType;
+        dd($sortType, 'hello');
+    }
 
     public function render()
     {
-        $images = (explode('/',request()->path())[0] == 'profile') ? $this->getUserImages($this->id) : $this->getAllImages();
+        $images = (explode('/',request()->path())[0] == 'profile') ? $this->getUserImages($this->id)->paginate(1) : $this->getAllImages();
 
         return view('livewire.components.images-showcase',[
             'images' => $images,

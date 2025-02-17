@@ -1,4 +1,4 @@
-<main class="mt-5 flex m-0 w-full" x-data="approvedImages">
+<main class="mt-5 flex m-0 w-full" x-data="approvedImages" x-init="initalized">
     @if (count($approvedImage) > 0)
         <div class="flex w-full items-start">
             <div class="max-w w-full">
@@ -18,7 +18,7 @@
                     @endforeach
                 </div>
             </div>
-            <div class="bg-white shadow-sm rounded-xl max-w-[400px] h-svh overflow-y-scroll transition-all duration-200 ease-in sticky top-0 justify-start" :style="'width:' +sideWidth+ '%'" x-cloak>
+            <div class="sidebar-styles" :style="'width:' +sideWidth+ '%'" x-cloak>
                 <livewire:superadmin.generic-detail />
             </div>
         </div>
@@ -37,6 +37,12 @@
     Alpine.data('approvedImages', () => ({
 
         sideWidth: 0,
+
+        initalized(){
+            $wire.on('close-side', () => { 
+                this.sideWidth = 0
+            });
+        },
 
         detailInfo(id){
             this.sideWidth = 50;

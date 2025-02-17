@@ -1,4 +1,4 @@
-<main class="mx-auto w-[720px]" x-data="avatarUploader">
+<main class="mx-auto md:w-[720px]" x-data="avatarUploader">
     @if ($errors->any())
         <div class="bg-red-500 rounded">
             <ul class="my-5 mx-10 list-disc py-2">

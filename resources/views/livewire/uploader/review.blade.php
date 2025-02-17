@@ -15,9 +15,12 @@
                     </div>
                 </div>
             </section>
-            <section class="bg-white shadow-sm rounded-s max-w-[400px] h-svh overflow-y-scroll transition-all duration-200 ease-in sticky top-0 justify-start w-56" :style="'width:' +sideWidth+'%'" x-cloak>
+            <section class="fixed z-10 right-0 top-0 bottom-0 bg-white shadow-sm rounded-s max-w-[400px] h-svh overflow-y-scroll transition-all duration-200 ease-in md:sticky md:top-0 justify-start" :style="'width:' +sideWidth+'%'" x-cloak>
                 <div class="p-5">
-                    <h2>Detail Image</h2>
+                    <div class="flex justify-between items-center">
+                        <h2 class="title-font">Detail Image</h2>
+                        <button x-on:click="closeSide" class="cursor-pointer mb-3 hover:underline">Close</button>
+                    </div>
                     <div class="w-full h-56 bg-red-100 bg-cover bg-center bg-no-repeat mt-5" :style="`background-image: url('/storage/photos/`+detail['name']+`');`">
                     </div>
                     <div class="mb-2 mt-5">
@@ -72,7 +75,7 @@
         },
 
         detailImage(image){
-            this.sideWidth = 50;
+            this.sideWidth = 75;
             console.log(image);
 
             this.detail = {
@@ -82,6 +85,10 @@
                 'description': image['description'],
                 'tag': image['tag'],
             }
+        },
+
+        closeSide(){
+            this.sideWidth = 0;
         }
     }))
 

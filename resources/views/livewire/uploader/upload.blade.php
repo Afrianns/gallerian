@@ -64,7 +64,7 @@
                 </form>
             </div>
         </section>
-        <section class="bg-white shadow-sm rounded-s max-w-[400px] h-svh overflow-y-scroll transition-all duration-200 ease-in sticky top-0 justify-start" :style="'width:' +sideWidth+'%'" x-cloak>
+        <section class="sidebar-styles" :style="'width:' +sideWidth+'%'" x-cloak>
                 <livewire:uploader.detail-file :$imageID/>
         </section>
     </div>
@@ -133,6 +133,12 @@
                     }
                 }
             })
+            $wire.on('close-side', () => {
+                for (const index in this.clickable)
+                    this.clickable[index] = false
+                
+                this.sideWidth = 0
+            });
         },
     
         fetchHTMLImageTemplates(){
@@ -203,7 +209,7 @@
                 this.clickable[index] = false
 
             this.clickable[idx] = true
-            this.sideWidth = 50
+            this.sideWidth = 75
             
             $wire.dispatch('show-detail-data',{ index: id })
         },

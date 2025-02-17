@@ -53,7 +53,7 @@
             </section>
             @endforeach
         </div>
-        <div class="bg-white shadow-sm rounded-xl max-w-[400px] h-svh overflow-y-scroll transition-all duration-200 ease-in sticky top-0 justify-start rounded-l-xl border border-gray-300" :style="'width:'+sideWidth+'%'" x-cloak>
+        <div class="sidebar-styles" :style="'width:'+sideWidth+'%'" x-cloak>
             <livewire:superadmin.generic-detail />
         </div>
     </div>
@@ -104,10 +104,14 @@
                     title: "<p class='text-md font-normal'>"+data.status[1]+"</p>",
                 });
             })
+
+            $wire.on('close-side', () => {
+                this.sideWidth = 0
+            });
         },
         
         detailInfo(id){
-            if (this.sideWidth == 0) this.sideWidth = 50;
+            if (this.sideWidth == 0) this.sideWidth = 75;
 
             $wire.dispatch('detail-reviewable', {index: id, type: 'pending'})
         },

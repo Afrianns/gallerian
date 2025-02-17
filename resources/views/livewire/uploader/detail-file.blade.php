@@ -1,5 +1,8 @@
 <main class="py-6 px-5 h-fit" x-data="Detail" x-init="initialized" x-on:show-detail-data.window="setDetail($event)">
-    <h2 class="title-font">Edit Detail Image</h2>
+    <div class="flex justify-between items-center">
+        <h2 class="title-font">Edit Detail Image</h2>
+        <button x-on:click="closeSide" class="cursor-pointer mb-3 hover:underline">Close</button>
+    </div>
     <div class="w-full h-64 form-input-style rounded overflow-hidden  border-none" :class="detail ? '': 'animate-pulse'">
         <template x-if="detail">
                 <img :src="'/storage/photos/'+ detail.name" class="w-full h-full bg-cover" alt="">
@@ -70,6 +73,10 @@
         setDetail(res){
             this.detail = null;
             $wire.getDetail(res.detail.index);
+        },
+
+        closeSide(){
+            $wire.dispatch('close-side')
         },
     }))
 </script>

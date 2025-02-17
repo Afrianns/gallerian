@@ -41,6 +41,8 @@
                 </a>
             </ul>
         </nav>
-        {{ $slot }}
+        <main class="mx-5">
+            {{ $slot }}
+        </main>
     </body>
 </html>

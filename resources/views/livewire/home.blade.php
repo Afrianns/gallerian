@@ -1,7 +1,7 @@
 <main class="mx-auto" x-data='home' x-cloak>
     <section class="h-[500px] w-full bg-gradient-to-b  from-[#05FFF7] to-purple-500 relative overflow-hidden">
         <div class="max-w flex flex-col justify-center text-center align-middle h-full items-center z-10 relative">
-            <h1 class="text-5xl font-kumbhSans font-extrabold w-4/5 leading-snug  mix-blend-darken text-white">FIND THE MOST CREATIVE DESIGN YOU HAVE EVER SEEN </h1>
+            <h1 class="text-3xl md:text-5xl font-kumbhSans font-extrabold w-4/5 leading-snug  mix-blend-darken text-white">FIND THE MOST CREATIVE DESIGN YOU HAVE EVER SEEN </h1>
             <div class="flex justify-center gap-x-4 mt-5 items-center">
                 @if (!Auth::check())
                     <a class="btn-style" href="/auth/redirect">Getting Started</a>
@@ -9,9 +9,9 @@
                 <a href="/gallery" class="hover:underline cursor-pointer" wire:navigate>Explore Gallery</a>
             </div>
         </div>
-        <div class="absolute top-0 flex justify-between gap-2 w-full mix-blend-overlay">
+        <div class="absolute top-32 lg:top-0 flex justify-between gap-2 w-[1000px] lg:w-full mix-blend-overlay">
             <template x-for="(image, id) in overlayBannerImages" :key="id">
-                <div class="relative w-[25%]" :style="'top: -'+image.topPos+'rem'">
+                <div class="relative w-[500px]" :style="'top: -'+image.topPos+'rem'">
                     <img :src="'/storage/placeholders/image' +image.imageID[0]+ '.png'" class="mb-2 w-full" alt="">
                     <img :src="'/storage/placeholders/image' +image.imageID[1]+ '.png'" class="mb-2 w-full" alt="">
                     <img :src="'/storage/placeholders/image' +image.imageID[2]+ '.png'" class="mb-2 w-full" alt="">
@@ -19,18 +19,18 @@
             </template>
         </div>
     </section>
-    <section class="flex justify-center gap-x-10 my-36">
-        <div class="w-3/12">
+    <section class="mx-5 md:mx-auto md:max-w-[1100px] grid grid-cols-2 md:grid-cols-3 justify-center gap-10 my-36">
+        <div class="w-full">
             <h2 class="w-fit text-3xl text-white bg-lightBlue font-kalnia font-bold py-3 px-6 rounded-full">1</h2>
             <h3 class="font-medium mt-5">Find Inspiration from People Around the world</h3>
             <p class="font-light">Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellat atque, explicabo.</p>
         </div>
-        <div class="w-3/12">
+        <div class="w-full">
             <h2 class="w-fit text-3xl text-white bg-lightBlue font-kalnia font-bold py-3 px-5 rounded-full">2</h2>
             <h3 class="font-medium mt-5">Showcase your creative works to the world</h3>
             <p class="font-light">Est natus sit laboriosam ipsam officiis. Quod beatae quisquam rerum sit cum facilis.</p>
         </div>
-        <div class="w-3/12">
+        <div class="w-full">
             <h2 class="w-fit text-3xl text-white bg-lightBlue font-kalnia font-bold py-3 px-5 rounded-full">3</h2>
             <h3 class="font-medium mt-5">Get Feedback by designer around the world</h3>
             <p class="font-light">Enim quis facere ipsum possimus odit, itaque corporis earum, harum tenetur rem.</p>
@@ -48,8 +48,8 @@
         </div>
         <div class="bg-black/10 top-0 left-0 right-0 bottom-0 absolute"></div>
         <div class="flex justify-center items-center h-full relative flex-col uppercase z-10"> 
-            <h2 class="font-semibold text-3xl text-white">Join with Million Artists around the World</h2>
-            <p class="text-2xl font-semibold text-green-500">It's Free</p>
+            <h2 class="font-semibold text-2xl md:text-3xl text-white">Join with Million Artists around the World</h2>
+            <p class="text-xl md:text-2xl font-semibold text-green-500">It's Free</p>
 
             @if (!Auth::check())
                 <a class="btn-style mt-8" href="/auth/redirect">

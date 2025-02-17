@@ -1,4 +1,4 @@
-<main x-data="rejectedImages">
+<main x-data="rejectedImages" x-init="initialized">
     <div class="flex">
         <section class="w-full rounded-md h-full">
             @if (count($all_rejected_images) > 0)
@@ -35,7 +35,7 @@
                         </section>
                         @endforeach
                     </div>
-                    <div class="bg-white shadow-sm rounded-xl max-w-[400px] h-svh overflow-y-scroll transition-all duration-200 ease-in sticky top-0 justify-start rounded-l-xl border border-gray-300" :style="'width:'+sideWidth+'%'" x-cloak>
+                    <div class="sidebar-styles" :style="'width:'+sideWidth+'%'" x-cloak>
                         <livewire:superadmin.generic-detail />
                     </div>
                 </div>
@@ -56,6 +56,12 @@
     Alpine.data('rejectedImages', () => ({
 
         sideWidth: 0,
+
+        initialized() {
+            $wire.on('close-side', () => {
+                this.sideWidth = 0
+            });
+        },
 
         detailInfo(id){
             this.sideWidth = 50;
