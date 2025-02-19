@@ -43,4 +43,9 @@ class Image extends Model
     {
         return $this->hasMany(likes::class)->where('image_id', $id)->where('like', true)->count();
     }
+
+    public function searches() 
+    {
+        return $this->where('is_reviewed','approved')->all();
+    }
 }

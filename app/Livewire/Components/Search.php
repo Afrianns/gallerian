@@ -6,7 +6,14 @@ use Livewire\Component;
 
 class Search extends Component
 {
-    public $className = "bg-teal py-3 hover:bg-cyan-400";
+    public $className = "bg-teal hover:bg-cyan-400";
+    public $classNameInput = "";
+
+    public function queryData() 
+    {
+        $this->dispatch('query-value')->component(ImagesShowcase::class);
+        // dd($this->query);
+    }
 
     public function render()
     {

@@ -1,16 +1,33 @@
-<main x-data="imagesShowcase" class="my-10 pb-10">
-    {{-- @php
-       $curPath = request()->path(); 
-    @endphp --}}
-    {{-- @if (request()->is("profile/*"))
-    <div class="flex justify-end my-5">
-        <ul class="flex gap-x-2">
-            <li wire:click="$dispatch('sort-type', { sortType: 'asc' })" class="py-2 px-7 hover:bg-cyan-400 rounded cursor-pointer bg-teal border border-gray-300 p-2 text-center h-fit">Latest</li>
-            <li wire:click="$dispatch('sort-type', { sortType: 'desc' })" class="py-2 px-7 hover:bg-gray-50 rounded cursor-pointer bg-white border border-gray-300 p-2 text-center h-fit">Oldest</li>
-        </ul>
-        wire:click="sorting('desc', '{{ $curPath }}')"
+<main class="my-10 pb-10" x-data="imagesShowcase">
+    @php
+        $currentPath = explode("/",request()->getPathInfo());
+        $query = '';
+        $type = "asc";
+        $getUrlType = request()->get("type");
+        $getUrlQuery = request()->get("query");
+        if($getUrlQuery){
+            $query = $getUrlQuery;
+        }
+
+        if($getUrlType){
+            $type = $getUrlType;
+        }
+    @endphp
+    @if ($currentPath && $currentPath[1] == "profile")
+        <div class="flex items-center justify-between mb-5">
+            <livewire:components.search class="h-52" />
+    @else
+        <div>
+    @endif
+        <form action="{{ request()->fullUrl()}}" method="GET" class="flex justify-end mb-3" x-data="{sortingType: 'asc'}">
+            <ul class="flex gap-x-2">
+                <input type="hidden" name="type" :value="sortingType">
+                <input type="hidden" name="query" value="{{$query}}">
+                <li @class(['py-2 px-7 rounded cursor-pointer border border-gray-300 p-2 text-center h-fit','hover:bg-cyan-400 bg-teal' => $type == "asc", 'hover:bg-gray-50 bg-white' => $type != "asc"])><button x-on:click="sortingType = 'asc'" type="submit">Latest</button></li>
+                <li @class(['py-2 px-7 rounded cursor-pointer border border-gray-300 p-2 text-center h-fit','hover:bg-cyan-400 bg-teal' => $type == "desc", 'hover:bg-gray-50 bg-white' => $type != "desc"])><button x-on:click="sortingType = 'desc'" type="submit">Oldest</button></li>
+            </ul>
+        </form> 
     </div>
-    @endif --}}
     @if ($images->total() > 0)
     <div class="grid sm:grid-cols-2 md:grid-cols-3 gap-x-3 mb-20 mx-5">
             @foreach ($images as $image)
@@ -69,6 +86,10 @@
         detail: false, 
         selectedImage: null,
 
+        initalized() {
+            console.log("hello")
+        },
+
         showDetail(){
             $dispatch('overflowhid')
             this.detail = !this.detail;
@@ -78,9 +99,9 @@
             $wire.dispatch('show-detail',{index: id})
         },
 
-        // sortingImages(type){
-        //     $wire.dispatch("sorting", {sortType: type})
-        // },
+        check(){
+            console.log("fuc")
+        },
     }))
 </script>
 @endscript

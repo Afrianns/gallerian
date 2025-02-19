@@ -16,7 +16,6 @@
             detail: false,
 
             initialized(){
-
                 // let img = new Image()
                 // img.src = '/storage/placeholders/search/image.png'
                 // img.crossOrigin = "Anonymous"
