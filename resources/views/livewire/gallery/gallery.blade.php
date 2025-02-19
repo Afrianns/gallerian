@@ -4,7 +4,7 @@
         <h3 class="my-5 mx-5 md:mx-auto text-white text-3xl z-10">The best images, vector; share by professionals</h3>
         <livewire:components.search/>
     </div>
-    <div class="max-w mt-[400px] ">
+    <div class="max-w mt-[350px]">
         <livewire:components.images-showcase/>
     </div>
 </main>

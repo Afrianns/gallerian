@@ -21,9 +21,12 @@
         <nav class="py-4 px-5 w-full" :class="{ 'text-white bg-transparent relative z-20': isGallery && !isPosPass, 'bg-white shadow-sm': !isGallery || isPosPass, 'fixed top-0 z-10' : isPosPass }">
             <div class="flex justify-between px-2 max-w items-center">
                 <h1 class="font-kalnia font-bold text-3xl leading-normal" :class="{'text-white' : isGallery && !isPosPass }">Gallerian</h1>
-                <template x-if="isGallery && isPosPass">
-                    <livewire:components.search className="bg-gray-100 py-1 m-1 rounded-md hover:bg-gray-200" classNameInput=" border border-gray-300 overflow-hidden" />
-                </template>
+                <div class="hidden md:block">
+                    <template x-if="isGallery && isPosPass">
+                        <livewire:components.search className="bg-gray-100 py-1 m-1 rounded-md hover:bg-gray-200" classNameInput=" border border-gray-300 overflow-hidden" />
+                    </template>
+                </div>
+                
                 <nav class="flex gap-x-5 items-center" :class="{'text-white' : isGallery && !isPosPass }">
                     <a wire:navigate href="/" class="hover:underline @if (request()->is('/')) underline @endif">Home</a>
                     <a wire:navigate href="/gallery" class="hover:underline @if (request()->is('gallery')) underline @endif">Gallery</a>

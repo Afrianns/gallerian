@@ -14,12 +14,12 @@
         }
     @endphp
     @if ($currentPath && $currentPath[1] == "profile")
-        <div class="flex items-center justify-between mb-5">
-            <livewire:components.search class="h-52" />
+        <div class="flex items-center md:justify-between mb-5 md:mx-5 max-md:flex-col justify-start">
+            <livewire:components.search />
     @else
-        <div>
+        <div class="flex justify-end md:mx-0 mx-5 mb-5">
     @endif
-        <form action="{{ request()->fullUrl()}}" method="GET" class="flex justify-end mb-3" x-data="{sortingType: 'asc'}">
+        <form action="{{ request()->fullUrl()}}" method="GET" class="ml-auto max-md:mr-5 max-md:mt-5 max-md:mb-3" x-data="{sortingType: 'asc'}">
             <ul class="flex gap-x-2">
                 <input type="hidden" name="type" :value="sortingType">
                 <input type="hidden" name="query" value="{{$query}}">
