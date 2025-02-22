@@ -2,9 +2,7 @@
 
 namespace App\Livewire;
 
-use App\Livewire\Components\ImagesShowcase;
 use App\Models\User;
-use Illuminate\Http\Client\Request;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;

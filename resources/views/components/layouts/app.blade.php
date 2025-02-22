@@ -32,7 +32,9 @@
                     <a wire:navigate href="/gallery" class="hover:underline @if (request()->is('gallery')) underline @endif">Gallery</a>
 
                     @if (Auth::check())
-                        <a wire:navigate href="/upload" class="hover:underline @if (request()->is('upload/*') || request()->is('upload')) underline @endif">Upload</a>
+                        @if (Auth::user()->type == "user")
+                            <a wire:navigate href="/upload" class="hover:underline @if (request()->is('upload/*') || request()->is('upload')) underline @endif">Upload</a>
+                        @endif    
                         <div class="relative">
                             <div class="flex gap-x-1 items-center cursor-pointer p-1 rounded-full bg-center bg-cover" @click="profile" :class="{'bg-purple-50/20 hover:bg-purple-100/20' : isGallery && !isPosPass, ' bg-purple-50 hover:bg-purple-100': !isGallery || isPosPass}">
                                 <img src="{{ Auth::user()->avatar }}" referrerpolicy="no-referrer" class="w-10 h-10 rounded-full" alt="">

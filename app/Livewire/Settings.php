@@ -18,16 +18,26 @@ class Settings extends Component
     use WithFileUploads;
     
     public $avatar = '';
+
+    #[Validate("nullable|min:20|max:255")]
     public $bio = '';
+    
+    #[Validate("nullable|url:http,https|max:50")]
     public $website = '';
 
+    #[Validate("required|max:100")]
+    public $name = '';
+
     
-    #[Validate('image|max:520')]
-    public $newAvatar = '';
+    #[Validate('nullable|image|max:520')]
+    public $newAvatar;
 
 
     public function mount($UUID)
     {
+        $this->name = Auth::user()->name;
+        $this->bio = Auth::user()->bio;
+        $this->website = Auth::user()->website;
 
         $user = User::where("UUID", $UUID)->first();
 
@@ -39,39 +49,35 @@ class Settings extends Component
         $this->avatar = $user->avatar;
     }
 
-    public function upload(Request $request)
+    public function save()
     {
-
-        $file = $request->file('avatar');
-
-        $request->validate([
-            'name' => "required|max:100",
-            'bio'  => "nullable|min:20|max:255",
-            'website'  => "nullable|url:http,https|max:50",
-        ]);
+        $this->validate();
 
         $UUID = Auth::user()->UUID;
 
         $user_data = User::where('UUID', $UUID)->first();
-
+        
         // get current user avatar
         $prev_avatar_path = $user_data->avatar;
-
+        
+        // check is user, and not admin
         // check if data exist and store it to user data
+        if($user_data->type == "user") {
 
-        if(isset($request->bio)){
-            $user_data->bio = $request->bio;
-        }
-
-        if(isset($request->website)){
-            $user_data->website = $request->website;
+            if(isset($this->bio)){
+                $user_data->bio = $this->bio;
+            }
+            
+            if(isset($this->website)){
+                $user_data->website = $this->website;
+            }
         }
 
         // if user upload file then do this otherwise skip it
-        if(isset($file)){
+        if(isset($this->newAvatar)){
 
             // store file avatar to public storage/avatar
-            $path = $file->store('avatar');
+            $path = $this->newAvatar->store('avatar');
             $user_data->avatar =  '/storage//' . $path;
 
             
@@ -84,20 +90,16 @@ class Settings extends Component
             }
         }
         
-        $user_data->name = $request->name;        
+        $user_data->name = $this->name;        
         $res = $user_data->save();
         
         if($res){
-            $this->redirectMethod();
+            session()->flash('status', ['success','Post successfully updated.']);
+        } else {
+            session()->flash('status', ['error','Post failed to update.']);   
         }
-        // dd($res, $user_data,'/profile/'. $UUID);
+        return $this->redirect('/profile/'. Auth::user()->UUID, true);
  
-    }
-
-    private function redirectMethod()
-    {
-        session()->flash('status', ['success','Post successfully updated.']);
-        return $this->redirect("/", true);
     }
 
     public function render()

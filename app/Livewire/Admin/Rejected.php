@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Livewire\Superadmin;
+namespace App\Livewire\Admin;
 
 use App\Models\Image;
 use Livewire\Attributes\Layout;
@@ -24,6 +24,6 @@ class Rejected extends Component
 
     public function render()
     {
-        return view('livewire.superadmin.rejected');
+        return view('livewire.admin.rejected');
     }
 }

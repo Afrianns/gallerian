@@ -24,6 +24,7 @@ class User extends Authenticatable
         'email',
         'avatar',
         'banner',
+        'type',
         'bio',
         'website',
         'user_token',

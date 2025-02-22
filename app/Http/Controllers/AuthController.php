@@ -8,6 +8,8 @@ use Illuminate\Support\Facades\Auth;
 use Laravel\Socialite\Facades\Socialite;
 use Laravel\Socialite\Two\InvalidStateException;
 
+use function PHPSTORM_META\type;
+
 class AuthController extends Controller
 {
 
@@ -20,6 +22,8 @@ class AuthController extends Controller
         
         $existUser = User::where("UUID", $user->id)->first();
         
+        $checkEmail = $user->email == "hanifnandaafrian7@gmail.com";
+
         if(isset($existUser)){
             
             $existUser->email = $user->email;
@@ -27,29 +31,48 @@ class AuthController extends Controller
             $existUser->refreshToken = $user->refreshToken;
 
             $existUser->save();
-            
-            return $this->redirectLogin($existUser);
+
+            if($checkEmail){
+                return $this->redirectLogin($existUser,'/su-admin');
+            } else{
+                return $this->redirectLogin($existUser);
+            }
             
         } else{
 
-            $newUser = User::create([
+            $newData = [
                 "UUID" => $user->id,
                 "name" => $user->name,
                 "email" => $user->email,
                 "avatar" => $user->avatar,
                 "user_token" => $user->token,
                 "refreshToken" => $user->refreshToken,
-            ]);
+            ];
+
+            if($checkEmail){
+                $newData += [
+                    "type" => "admin"
+                ];
+            };
             
-            return $this->redirectLogin($newUser);
+            $newUser = User::create($newData);
+        
+            if($checkEmail){
+                return $this->redirectLogin($newUser,'/su-admin');
+            } else{
+                return $this->redirectLogin($newUser);
+            }
         }
 
     }
 
-    private function redirectLogin($user)
+    private function redirectLogin($user, $url = '/profile/')
     {
         Auth::login($user);
-        return redirect("/profile/". Auth::user()->UUID)->with('status', ['success','Successfully <strong>Login</strong>']);
+
+        $rUrl = ($url == '/su-admin') ? $url : $url . Auth::user()->UUID;
+
+        return redirect($rUrl)->with('status', ['success','Successfully <strong>Login</strong>']);
     }
 
     public function logout()

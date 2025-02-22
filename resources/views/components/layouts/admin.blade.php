@@ -36,12 +36,15 @@
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" class="mx-auto"><path d="M21 5c0-1.103-.897-2-2-2H5c-1.103 0-2 .897-2 2v14c0 1.103.897 2 2 2h14c1.103 0 2-.897 2-2V5zM5 19V5h14l.002 14H5z"></path><path d="M7 7h1.998v2H7zm4 0h6v2h-6zm-4 4h1.998v2H7zm4 0h6v2h-6zm-4 4h1.998v2H7zm4 0h6v2h-6z"></path></svg>
                 </a>
                 <span class="h-5 w-[.2px] bg-gray-200 mx-1"></span>
-                <a wire:navigate href="#" title="Logout" class="admin-nav hover:bg-red-100 hover:fill-red-500">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" class="mx-auto"><path d="m2 12 5 4v-3h9v-2H7V8z"></path><path d="M13.001 2.999a8.938 8.938 0 0 0-6.364 2.637L8.051 7.05c1.322-1.322 3.08-2.051 4.95-2.051s3.628.729 4.95 2.051 2.051 3.08 2.051 4.95-.729 3.628-2.051 4.95-3.08 2.051-4.95 2.051-3.628-.729-4.95-2.051l-1.414 1.414c1.699 1.7 3.959 2.637 6.364 2.637s4.665-.937 6.364-2.637c1.7-1.699 2.637-3.959 2.637-6.364s-.937-4.665-2.637-6.364a8.938 8.938 0 0 0-6.364-2.637z"></path></svg>
-                </a>
+                <form action="/logout" method="post" class="admin-nav hover:bg-red-100 hover:fill-red-500">
+                    @csrf
+                    <button type="submit" class="m-0 p-0 block">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" class="mx-auto"><path d="m2 12 5 4v-3h9v-2H7V8z"></path><path d="M13.001 2.999a8.938 8.938 0 0 0-6.364 2.637L8.051 7.05c1.322-1.322 3.08-2.051 4.95-2.051s3.628.729 4.95 2.051 2.051 3.08 2.051 4.95-.729 3.628-2.051 4.95-3.08 2.051-4.95 2.051-3.628-.729-4.95-2.051l-1.414 1.414c1.699 1.7 3.959 2.637 6.364 2.637s4.665-.937 6.364-2.637c1.7-1.699 2.637-3.959 2.637-6.364s-.937-4.665-2.637-6.364a8.938 8.938 0 0 0-6.364-2.637z"></path></svg>
+                    </button>
+                </form>
             </ul>
         </nav>
-        <main class="mx-5">
+        <main>
             {{ $slot }}
         </main>
     </body>

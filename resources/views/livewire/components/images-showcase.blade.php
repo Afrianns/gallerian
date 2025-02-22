@@ -13,6 +13,7 @@
             $type = $getUrlType;
         }
     @endphp
+    @if ($images->total() > 0)
     @if ($currentPath && $currentPath[1] == "profile")
         <div class="flex items-center md:justify-between mb-5 md:mx-5 max-md:flex-col justify-start">
             <livewire:components.search />
@@ -28,7 +29,6 @@
             </ul>
         </form> 
     </div>
-    @if ($images->total() > 0)
     <div class="grid sm:grid-cols-2 md:grid-cols-3 gap-x-3 mb-20 mx-5">
             @foreach ($images as $image)
                 @php

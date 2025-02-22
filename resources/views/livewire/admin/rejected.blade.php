@@ -36,7 +36,7 @@
                         @endforeach
                     </div>
                     <div class="sidebar-styles" :style="'width:'+sideWidth+'%'" x-cloak>
-                        <livewire:superadmin.generic-detail />
+                        <livewire:admin.generic-detail />
                     </div>
                 </div>
             @else

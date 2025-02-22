@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Livewire\Superadmin;
+namespace App\Livewire\Admin;
 
 use App\Models\Image;
 use Livewire\Component;
@@ -51,6 +51,6 @@ class GenericDetail extends Component
 
     public function render()
     {
-        return view('livewire.superadmin.generic-detail');
+        return view('livewire.admin.generic-detail');
     }
 }

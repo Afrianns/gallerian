@@ -74,34 +74,40 @@
         @endauth
 
         <h1 class="text-xl w-1/2 mx-auto my-2">{{ $profile->name }}</h1>
-        <p class="text-gray-400 text-sm w-1/2 mx-auto">
-            @if(strlen($profile->bio) > 0)
-                {{ $profile->bio }}
-            @else
-                I'm an annonymous person whon never share any thing even a single word/text. But in anyway i graphic design, illustrator.
-            @endif
-        </p>
-        @if(strlen($profile->website) > 0)
-            <div class="my-5">
-                <a href="{{ $profile->website }}" target="_blank" class="mx-auto block w-fit p-1 bg-purple-50 rounded-full hover:bg-purple-100">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" style="fill: rgba(0, 0, 0, 1);transform: ;msFilter:;"><path d="M12 2C6.486 2 2 6.486 2 12s4.486 10 10 10 10-4.486 10-10S17.514 2 12 2zm7.931 9h-2.764a14.67 14.67 0 0 0-1.792-6.243A8.013 8.013 0 0 1 19.931 11zM12.53 4.027c1.035 1.364 2.427 3.78 2.627 6.973H9.03c.139-2.596.994-5.028 2.451-6.974.172-.01.344-.026.519-.026.179 0 .354.016.53.027zm-3.842.7C7.704 6.618 7.136 8.762 7.03 11H4.069a8.013 8.013 0 0 1 4.619-6.273zM4.069 13h2.974c.136 2.379.665 4.478 1.556 6.23A8.01 8.01 0 0 1 4.069 13zm7.381 6.973C10.049 18.275 9.222 15.896 9.041 13h6.113c-.208 2.773-1.117 5.196-2.603 6.972-.182.012-.364.028-.551.028-.186 0-.367-.016-.55-.027zm4.011-.772c.955-1.794 1.538-3.901 1.691-6.201h2.778a8.005 8.005 0 0 1-4.469 6.201z"></path></svg>
-                </a>
-            </div>
-        @endif
-        <ul class="flex justify-center gap-x-10 mt-5 text-md">
-            <li class="flex gap-x-1 font-medium">
-                <span>{{ count($images) }}</span>
-                @if(count($images) > 1)
-                    <p>Images</p>
+        @if (!Auth::check() || Auth::check() && Auth::user()->type == "user")
+            <p class="text-gray-400 text-sm w-1/2 mx-auto">
+                @if(strlen($profile->bio) > 0)
+                    {{ $profile->bio }}
                 @else
-                    <p>Image</p>
+                    I'm an annonymous person whon never share any thing even a single word/text. But in anyway i graphic design, illustrator.
                 @endif
-            </li>
-            <li class="flex gap-x-1 font-medium">
-                <span>0</span>
-                <p>Like</p>
-            </li>
-        </ul>
+            </p>
+            @if(strlen($profile->website) > 0)
+                <div class="my-5">
+                    <a href="{{ $profile->website }}" target="_blank" class="mx-auto block w-fit p-1 bg-purple-50 rounded-full hover:bg-purple-100">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" style="fill: rgba(0, 0, 0, 1);transform: ;msFilter:;"><path d="M12 2C6.486 2 2 6.486 2 12s4.486 10 10 10 10-4.486 10-10S17.514 2 12 2zm7.931 9h-2.764a14.67 14.67 0 0 0-1.792-6.243A8.013 8.013 0 0 1 19.931 11zM12.53 4.027c1.035 1.364 2.427 3.78 2.627 6.973H9.03c.139-2.596.994-5.028 2.451-6.974.172-.01.344-.026.519-.026.179 0 .354.016.53.027zm-3.842.7C7.704 6.618 7.136 8.762 7.03 11H4.069a8.013 8.013 0 0 1 4.619-6.273zM4.069 13h2.974c.136 2.379.665 4.478 1.556 6.23A8.01 8.01 0 0 1 4.069 13zm7.381 6.973C10.049 18.275 9.222 15.896 9.041 13h6.113c-.208 2.773-1.117 5.196-2.603 6.972-.182.012-.364.028-.551.028-.186 0-.367-.016-.55-.027zm4.011-.772c.955-1.794 1.538-3.901 1.691-6.201h2.778a8.005 8.005 0 0 1-4.469 6.201z"></path></svg>
+                    </a>
+                </div>
+            @endif
+            <ul class="flex justify-center gap-x-10 mt-5 text-md">
+                <li class="flex gap-x-1 font-medium">
+                    <span>{{ count($images) }}</span>
+                    @if(count($images) > 1)
+                        <p>Images</p>
+                    @else
+                        <p>Image</p>
+                    @endif
+                </li>
+                <li class="flex gap-x-1 font-medium">
+                    <span>0</span>
+                    <p>Like</p>
+                </li>
+            </ul>
+        @endif
+        @if (Auth::check() && Auth::user()->type == "admin")
+            <h3 class="text-md text-gray-700 mt-5">This is Admin</h3>
+            <p class="text-sm text-gray-500">Admin cannot like or post images!</p>
+        @endif
     </div>
     <livewire:components.images-showcase :id="$profile->id"/>
     {{-- @if (count($images) > 0)

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Livewire\Superadmin;
+namespace App\Livewire\Admin;
 
 use App\Models\Image;
 use App\Models\RejectedInfo;
@@ -88,6 +88,6 @@ class Pending extends Component
 
     public function render()
     {
-        return view('livewire.superadmin.pending');
+        return view('livewire.admin.pending');
     }
 }
