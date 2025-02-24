@@ -2,6 +2,8 @@
 
 namespace App\Livewire;
 
+use App\Models\User;
+use App\Notifications\AcceptanceStatus;
 use App\Photos;
 use Illuminate\Pagination\Paginator;
 use Livewire\Component;
@@ -9,7 +11,7 @@ use Livewire\WithPagination;
 use Unsplash\HttpClient;
 use Unsplash\Search;
 use App\UnsplashObj;
-
+use Illuminate\Support\Facades\Auth;
 
 class Home extends Component
 {
@@ -46,6 +48,13 @@ class Home extends Component
         //    dd($data->getResults());
         $this->position = $data->getHeaders();
         $this->photosOne = $data->getResults();
+    }
+
+    public function checkEmail()
+    {
+        $user = User::find(Auth::user()->id);
+        $hello = "this is miss herry";
+        $user->notify(new AcceptanceStatus($hello));
     }
 
     public function render()

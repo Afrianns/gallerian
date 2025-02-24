@@ -68,6 +68,6 @@ Route::prefix("su-admin")->middleware(EnsureAdminAuthorization::class)->group(fu
 });
 
 // Redirect to previous page if url not found
-Route::fallback(function () {
-    return redirect()->back();
-});
+// Route::fallback(function () {
+//     return redirect()->back();
+// });

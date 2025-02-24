@@ -48,4 +48,9 @@ class Image extends Model
     {
         return $this->where('is_reviewed','approved')->all();
     }
+
+    public function getTheOwner()
+    {
+        return $this->with(['user'])->get();
+    }
 }

@@ -4,6 +4,7 @@ namespace App\Livewire\Admin;
 
 use App\Models\Image;
 use App\Models\RejectedInfo;
+use App\Notifications\AcceptanceStatus;
 use Livewire\Attributes\Layout;
 use Livewire\Attributes\On;
 use Livewire\Attributes\Validate;
@@ -32,17 +33,18 @@ class Pending extends Component
     #[On('approve-event')]
     public function approveImage($index)
     {
-        // $message = new RejectedInfo;
 
         if(!isset($index)) return;
-
+        
         $image = Image::find($index);
-
+        
         if(isset($image)){
             $image->is_reviewed = "approved";
             $result = $image->update();
-
+            
             if($result){
+                $image->user->notify(new AcceptanceStatus('Accepted', $image->name));
+
                 $this->redirectInfos('success',"Successfully approved");
                 $this->redirect('/su-admin', true);
             } else{
@@ -57,19 +59,22 @@ class Pending extends Component
         $this->validate();
         
         if(isset($imageId)){
-            
-            $message = RejectedInfo::create([
-                "image_id" => $imageId,
-                "message" => $this->message
-            ]);
-
-            $message = Image::find($imageId);
-
-            $message->is_reviewed = "rejected";
-
-            $result = $message->update();
         
+            
+            $image = Image::find($imageId);
+            
+            $image->is_reviewed = "rejected";
+            $result = $image->update();
+
+            
             if($result){
+                RejectedInfo::create([
+                    "image_id" => $imageId,
+                    "message" => $this->message
+                ]);
+
+                $image->user->notify(new AcceptanceStatus('Rejected', $image->name));
+
                 $this->redirectInfos('success',"Successfully rejected");
                 $this->redirect('/su-admin', true);
             } else{
