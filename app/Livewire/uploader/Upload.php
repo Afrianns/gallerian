@@ -13,7 +13,6 @@ use Illuminate\Support\Facades\Storage;
 
 class Upload extends Component
 {
- 
     use WithFileUploads;
 
     #[Validate(['photos.*' => 'image|max:4096'])]
@@ -29,7 +28,7 @@ class Upload extends Component
     {
 
         $images = User::where('UUID', Auth::user()->UUID)->first();
-
+        // dd($images);
         foreach ($images->image as $image) {
             if($image->is_reviewed =='not-yet'){
                 array_push($this->images, [
@@ -42,17 +41,20 @@ class Upload extends Component
         }
     }
 
-    public function save($res)
+    // saving photos data to DB by checking the wire:model=image to frontend temporary image
+    public function save($res, $idx)
     {
         foreach ($this->photos as $key => $photo) {
             if(isset($photo)){
                 if($photo->getFilename() == $res){
-                    $this->storeData($key);
+                    // dump($photo, $key, $res);
+                    $this->storeData($idx);
                 }
             }
         }
     }
     
+    // store individual photo data to DB
     private function storeData($id)
     {
         $images = new Image;
@@ -65,6 +67,7 @@ class Upload extends Component
         $images->user_id = Auth::user()->id;
         $result = $images->save();
 
+        // send event to front end to update temporary so it sync with uploaded image data
         if($result){
             $imageStore = ['id' => $images->id, 'name' => $hashName];
             $this->dispatch('image-saved', success: true, tempIndex: $id, imageData: $imageStore)->self();

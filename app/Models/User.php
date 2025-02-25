@@ -56,4 +56,9 @@ class User extends Authenticatable
     {
         return $this->hasMany(Image::class)->chaperone();
     }
+
+    public function Comment(): HasMany
+    {
+        return $this->hasMany(Comment::class);
+    }
 }

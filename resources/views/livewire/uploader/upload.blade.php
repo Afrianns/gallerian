@@ -32,6 +32,9 @@
                             <ul class="flex flex-wrap items-start gap-3 justify-center">
                                 <template x-for="(image, idx) in images">
                                     <li x-on:click="selected(idx, image.id)">
+                                        <p x-on:click="getImg">click</p>
+                                        <p x-text="image.id"></p>
+                                        <p x-text="image.name"></p>
                                         <div class="relative w-fit min-h-20 border-2 border-gray-200 bg-white rounded-xl p-2 mt-1 hover:cursor-pointer" :class=" clickable[idx] ? 'indicator':'c-hover'">
                                             <div x-show="image.saving" :class="image.saving ? 'flex items-center justify-center bg-gray-200/50 top-0 bottom-0 left-0 right-0 absolute h-full' : ''">  
                                                 <svg xmlns="http://www.w3.org/2000/svg" width="2em" height="2em" viewBox="0 0 24 24"><path fill="#555" d="M12 2A10 10 0 1 0 22 12A10 10 0 0 0 12 2Zm0 18a8 8 0 1 1 8-8A8 8 0 0 1 12 20Z" opacity="0.5"/><path fill="#fff" d="M20 12h2A10 10 0 0 0 12 2V4A8 8 0 0 1 20 12Z"><animateTransform attributeName="transform" dur="1s" from="0 12 12" repeatCount="indefinite" to="360 12 12" type="rotate"/></path></svg>
@@ -79,11 +82,17 @@
 
         sideWidth: 0,
         selectable: false,
+
+        getImg() {
+            console.log(this.images)
+        },
         
         initialized() {
             this.sideWidth = 0
             this.fetchHTMLImageTemplates();
     
+            // get event from backend where data is saved to DB
+            // match individual data so it sync with this.image above
             $wire.on("image-saved", (result) => {
                 if(result.success){
                     for (let i = 0; i < this.images.length; i++) {
@@ -148,6 +157,7 @@
             })
         },
     
+        // call function when multiple uploaded image 
         uploadFile(event) {
             let index = this.images.length
             let files = event.target.files
@@ -170,9 +180,10 @@
             }
         },
     
+        // call livewire upload progressing data
         doUpload(file, i){
             $wire.upload('photos.' + i, file, (result) => {
-                $wire.save(result)
+                $wire.save(result, i)
             }, () => {
             }, (event) => {
                 this.progress[i] = event.detail.progress

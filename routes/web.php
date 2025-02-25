@@ -22,10 +22,13 @@ use App\Livewire\Uploader\Upload;
 use App\Livewire\Admin\Approved;
 use App\Livewire\Admin\Pending;
 use App\Livewire\Admin\Rejected;
+use App\Livewire\Components\ImageDetail;
 
 Route::get('/', Home::class);
 
 Route::get('/gallery', Gallery::class);
+
+Route::get('/image/{imageID}', ImageDetail::class);
 
 // Third party authentication with google
 Route::get('/auth/redirect', function () {
@@ -66,6 +69,9 @@ Route::prefix("su-admin")->middleware(EnsureAdminAuthorization::class)->group(fu
     Route::get('approved', Approved::class);
 
 });
+
+// Route::prefix("image")->group(function() {
+// });
 
 // Redirect to previous page if url not found
 // Route::fallback(function () {

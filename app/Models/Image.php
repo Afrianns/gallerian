@@ -49,8 +49,8 @@ class Image extends Model
         return $this->where('is_reviewed','approved')->all();
     }
 
-    public function getTheOwner()
+    public function Comments(): HasMany
     {
-        return $this->with(['user'])->get();
+        return $this->hasMany(Comment::class);
     }
 }

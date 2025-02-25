@@ -1,16 +1,16 @@
 <main class="mx-auto md:w-[720px]" x-data="avatarUploader">
-    @if ($errors->any())
-        <div class="bg-red-500 rounded">
-            <ul class="my-5 mx-10 list-disc py-2">
-                @foreach ($errors->all() as $error)
-                    <li class="text-red-50">{{ $error }}</li>
-                @endforeach
-            </ul>
-        </div>
-    @endif
     <div class="max-w bg-white border border-gray-100 rounded-lg my-5 mt-8 shadow">
         <h1 class="my-6 mx-5 font-semibold text-xl">SETTINGS</h1>
         <form wire:submit="save" class="pb-8 px-5">
+            @if ($errors->any())
+                <div class="bg-red-500 rounded">
+                    <ul class="my-5 mx-10 list-disc py-2">
+                        @foreach ($errors->all() as $error)
+                            <li class="text-red-50">{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+            @endif
             @csrf
             <section>
                 <p class="font-normal text-lg">Avatar</p>
@@ -19,7 +19,7 @@
                     <input type="file" name="avatar" id="avatar" x-on:change="uploadAvatar" wire:model="newAvatar" class="absolute top-0 left-0 right-0 bottom-0 opacity-0 cursor-pointer">
                 </div>
             </section>
-            @error('newAvatar') <span class="error">{{ $message }}</span> @enderror
+            {{-- @error('newAvatar') <span class="error">{{ $message }}</span> @enderror --}}
             <section class="my-3">
                 <label for="name" class="font-normal text-lg">Name</label> <br>
                 <input type="text" name="name" id="name" class="profile-input" wire:model="name">
@@ -48,7 +48,6 @@
     Alpine.data('avatarUploader', () => ({
         
         tempImage: '',
-        
         showAvatar() {
             return (this.tempImage == '') ? $wire.avatar : this.tempImage
         },

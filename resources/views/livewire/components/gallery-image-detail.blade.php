@@ -30,8 +30,13 @@
         <div class="my-5">
             <img src="/storage/photos/{{ $image->name }}" class="w-1/2 mx-auto mb-5" alt="">
             <div class="w-1/2">
-                <h2 class="text-xl my-2 font-semibold font-kumbhSans">{{ $image->title }}</h2>
+                <a href="image/{{ $image->id }}" wire:navigate>
+                    <h2 class="text-xl my-2 font-semibold font-kumbhSans">{{ $image->title }}</h2>
+                </a>
                 <p class="font-light text-sm">{{ $image->description }}</p>
+            </div>
+            <div class="mt-5">
+                <h2>COMMENTS!</h2>
             </div>
         </div>
     @else
@@ -51,6 +56,7 @@
                 <p class="w-80 bg-gray-100 h-24 rounded-md animate-pulse"></p>
             </div>
         </div>
+
     @endif
 </div>
 

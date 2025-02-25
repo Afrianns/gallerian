@@ -53,6 +53,8 @@ class Settings extends Component
     {
         $this->validate();
 
+        // dd($result);
+
         $UUID = Auth::user()->UUID;
 
         $user_data = User::where('UUID', $UUID)->first();
@@ -94,9 +96,9 @@ class Settings extends Component
         $res = $user_data->save();
         
         if($res){
-            session()->flash('status', ['success','Post successfully updated.']);
+            session()->flash('status', ['success','Profile successfully updated.']);
         } else {
-            session()->flash('status', ['error','Post failed to update.']);   
+            session()->flash('status', ['error','Profile failed to update.']);   
         }
         return $this->redirect('/profile/'. Auth::user()->UUID, true);
  
