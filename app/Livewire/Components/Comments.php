@@ -31,7 +31,7 @@ class Comments extends Component
 
         if($result){
             session()->flash("status", ['success','Successfully post a comment!']);
-            return redirect('/image/'. $this->imageID, true);
+            return $this->redirect('/image/'. $this->imageID, true);
         }
     }
 

@@ -51,7 +51,10 @@ class ChildComments extends Component
 
         $result = Comment::create($data);
 
-        dd($result);
+        if($result){    
+            session()->flash("status", ['success','Successfully post your comment!']);
+            return $this->redirect('/image/'. $this->imageID, true);
+        }
     }
 
     public function deleteComment($commentID)
@@ -60,7 +63,7 @@ class ChildComments extends Component
 
         if($result){    
             session()->flash("status", ['success','Successfully delete your comment!']);
-            return redirect('/image/'. $this->imageID, true);
+            return $this->redirect('/image/'. $this->imageID, true);
         }
     }
 

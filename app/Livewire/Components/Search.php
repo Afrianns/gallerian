@@ -12,7 +12,6 @@ class Search extends Component
     public function queryData() 
     {
         $this->dispatch('query-value')->component(ImagesShowcase::class);
-        // dd($this->query);
     }
 
     public function render()

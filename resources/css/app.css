@@ -68,5 +68,11 @@
 }
 
 .sidebar-styles {
-    @apply fixed z-10 right-0 top-0 bottom-0 bg-white shadow-sm rounded-s max-w-[400px] h-svh overflow-y-scroll transition-all duration-200 ease-in md:sticky md:top-0 justify-start;;
+    @apply fixed z-10 right-0 top-0 bottom-0 bg-white shadow-sm rounded-s max-w-[400px] h-svh overflow-y-scroll transition-all duration-200 ease-in md:sticky md:top-0 justify-start;
+}
+
+/* comments */
+
+.comment-author-styles {
+    @apply text-sm font-normal py-[.2px] px-2 rounded-md;
 }

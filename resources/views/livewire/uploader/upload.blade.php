@@ -76,7 +76,6 @@
     Alpine.data('uploader', () => ({
     
         clickable: [],
-        // uploading: [],
         progress: [],
         images: [],
 
@@ -96,7 +95,7 @@
             $wire.on("image-saved", (result) => {
                 if(result.success){
                     for (let i = 0; i < this.images.length; i++) {
-                        console.log(this.images[i])
+                        console.log('image-saved section ',this.images[i], result.tempIndex)
                         if(this.images[i].id == result.tempIndex){
                             console.log(this.images[i].id, result.tempIndex)
                             this.images[i] = {
@@ -184,6 +183,7 @@
         doUpload(file, i){
             $wire.upload('photos.' + i, file, (result) => {
                 $wire.save(result, i)
+                console.log(file, result)
             }, () => {
             }, (event) => {
                 this.progress[i] = event.detail.progress

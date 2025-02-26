@@ -50,13 +50,6 @@ class Home extends Component
         $this->photosOne = $data->getResults();
     }
 
-    public function checkEmail()
-    {
-        $user = User::find(Auth::user()->id);
-        $hello = "this is miss herry";
-        $user->notify(new AcceptanceStatus($hello));
-    }
-
     public function render()
     {
         return view('livewire.home');

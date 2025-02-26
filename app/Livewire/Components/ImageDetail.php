@@ -2,11 +2,7 @@
 
 namespace App\Livewire\Components;
 
-use App\Models\Comment;
 use App\Models\Image;
-use App\Models\User;
-use Illuminate\Support\Facades\Auth;
-use Livewire\Attributes\Validate;
 use Livewire\Component;
 
 class ImageDetail extends Component
@@ -18,7 +14,7 @@ class ImageDetail extends Component
         $this->id = $imageID;
 
         if($this->id == null){
-            return redirect('gallery', true);
+            return $this->redirect('gallery', true);
         }
     }
 

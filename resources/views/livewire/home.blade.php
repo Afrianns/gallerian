@@ -19,9 +19,6 @@
             </template>
         </div>
     </section>
-    <div class="flex justify-center">
-        <button wire:click="checkEmail">cLick me</button>
-    </div>
     <section class="mx-5 md:mx-auto md:max-w-[1100px] grid grid-cols-2 md:grid-cols-3 justify-center gap-10 my-36">
         <div class="w-full">
             <h2 class="w-fit text-3xl text-white bg-lightBlue font-kalnia font-bold py-3 px-6 rounded-full">1</h2>

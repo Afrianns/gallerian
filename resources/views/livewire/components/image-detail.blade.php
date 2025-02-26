@@ -4,7 +4,7 @@
             <img src="{{ $image->user->avatar }}" class="w-10 h-10" alt="">
             <div>
                 <a class="text-md font-medium hover:underline" href="/profile/{{ $image->user->UUID }}">{{ $image->user->name }}</a>
-                <p mailto="{{ $image->user->email }}" class="text-base font-light">{{ $image->user->email }}</p>
+                <a href="mailto:{{ $image->user->email }}" class="text-base font-light block">{{ $image->user->email }}</a>
             </div>
         </div>
 

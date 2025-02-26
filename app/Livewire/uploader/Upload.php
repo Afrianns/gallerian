@@ -40,28 +40,26 @@ class Upload extends Component
             }
         }
     }
-
     // saving photos data to DB by checking the wire:model=image to frontend temporary image
     public function save($res, $idx)
     {
         foreach ($this->photos as $key => $photo) {
             if(isset($photo)){
                 if($photo->getFilename() == $res){
-                    // dump($photo, $key, $res);
-                    $this->storeData($idx);
+                    $this->storeData($photo, $idx);
                 }
             }
         }
     }
     
     // store individual photo data to DB
-    private function storeData($id)
+    private function storeData($photo, $id)
     {
         $images = new Image;
 
-        $hashName = $this->photos[$id]->hashName();
+        $hashName = $photo->hashName();
 
-        $this->photos[$id]->storeAs('photos', $hashName, "public");
+        $photo->storeAs('photos', $hashName, "public");
         
         $images->name = $hashName;
         $images->user_id = Auth::user()->id;
