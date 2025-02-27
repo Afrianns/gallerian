@@ -1,5 +1,5 @@
 <main x-data="gallery" x-init="initialized">
-    <div class="absolute top-0 h-[400px] w-full bg-red-50 mb-10 flex flex-col items-center justify-center bg-center bg-no-repeat bg-cover " style="background-image: url('/assets/placeholders/search/image.png')">
+    <div class="absolute top-0 h-[400px] w-full bg-red-50 mb-10 flex flex-col items-center justify-center bg-center bg-no-repeat bg-cover " style="background-image: url('/storage/placeholders/search/image.png')">
         <span class="absolute bg-black/30 top-0 left-0 bottom-0 right-0"></span>
         <h3 class="my-5 mx-5 md:mx-auto text-white text-3xl z-10">The best images, vector; share by professionals</h3>
         <livewire:components.search/>

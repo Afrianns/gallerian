@@ -12,9 +12,9 @@
         <div class="absolute top-32 lg:top-0 flex justify-between gap-2 w-[1000px] lg:w-full mix-blend-overlay">
             <template x-for="(image, id) in overlayBannerImages" :key="id">
                 <div class="relative w-[500px]" :style="'top: -'+image.topPos+'rem'">
-                    <img :src="'/assets/placeholders/image' +image.imageID[0]+ '.png'" class="mb-2 w-full" alt="">
-                    <img :src="'/assets/placeholders/image' +image.imageID[1]+ '.png'" class="mb-2 w-full" alt="">
-                    <img :src="'/assets/placeholders/image' +image.imageID[2]+ '.png'" class="mb-2 w-full" alt="">
+                    <img :src="'/storage/placeholders/image' +image.imageID[0]+ '.png'" class="mb-2 w-full" alt="">
+                    <img :src="'/storage/placeholders/image' +image.imageID[1]+ '.png'" class="mb-2 w-full" alt="">
+                    <img :src="'/storage/placeholders/image' +image.imageID[2]+ '.png'" class="mb-2 w-full" alt="">
                 </div>
             </template>
         </div>
