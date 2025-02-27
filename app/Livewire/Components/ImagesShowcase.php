@@ -3,8 +3,6 @@
 namespace App\Livewire\Components;
 
 use App\Models\Image;
-use App\Models\likes;
-use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
 use Livewire\WithPagination;
 
@@ -39,33 +37,6 @@ class ImagesShowcase extends Component
         
         if($getUrlQuery){
             $this->query = $getUrlQuery;
-        }
-    }
-
-    public function setLike($id)
-    {
-        if(Auth::check()){
-            $like = likes::where('image_id', $id)->where("user_id", Auth::user()->id)->first();
-    
-            if($like != null){
-                
-
-                $like->like = !$like->like;            
-                $like->update();
-
-            } else{
-                likes::create([
-                    "image_id" => $id,
-                    "user_id" => Auth::user()->id,
-                    "like" => true,
-                ]);
-            }
-            $this->dispatch('image-liked')->to(GalleryImageDetail::class);
-            // $this->redirect();
-            
-        } else{
-            session()->flash('status', ['warning', 'You need login/register to like this image.']);
-            $this->redirect('/gallery', true);
         }
     }
 

@@ -10,12 +10,6 @@ class GalleryImageDetail extends Component
 {
     public $image = null;
     public $totalLikes = 0;
-    public $like = false;
-    
-    public function mount($like)
-    {
-        $this->like = $like;
-    }
 
     #[On('show-detail')]
     public function getDetailImage($index)
@@ -33,12 +27,6 @@ class GalleryImageDetail extends Component
     public function resetImg()
     {
         $this->reset('image');
-    }
-
-    #[On('image-liked')]
-    public function getLiked()
-    {
-        $this->like = !$this->like;
     }
 
     public function render()

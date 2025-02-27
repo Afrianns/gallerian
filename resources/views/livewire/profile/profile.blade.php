@@ -53,7 +53,7 @@
         </div>
     @endif
     @endauth
-    <div class="px-5 border flex justify-center border-gray-200 rounded shadow w-full h-52 bg-no-repeat bg-ccover bg-center relative" style="background-image: url('{{ isset($profile->banner) ? $profile->banner : "/storage/banner/default.jpg"  }}')">
+    <div class="px-5 border flex justify-center border-gray-200 rounded shadow w-full h-52 bg-no-repeat bg-ccover bg-center relative" style="background-image: url('{{ isset($profile->banner) ? $profile->banner : "/assets/banner/default.jpg"  }}')">
         @auth
         @if ($profile->UUID === Auth::user()->UUID)
             <div x-on:click="uploader">

@@ -46,7 +46,7 @@
                         <img src="{{ $image->user->avatar }}"class="rounded-full w-7 h-7" alt="">
                         <a href="/profile/{{ $image->user->UUID }}" wire:navigate class="text-white capitalize hover:underline">{{ $image->user->name }}</a>
                     </div>
-                    @if(!Auth::check() || Auth::check() &&  Auth::user()->type == "user")
+                    {{-- @if(!Auth::check() || Auth::check() &&  Auth::user()->type == "user")
                         <div class="bg-gradient-to-b from-black/25 to-transparent absolute top-0 left-0 right-0 group-hover:flex justify-end hidden">
                             <span wire:click="setLike({{ $image->id }})" @class(['p-2 m-2 rounded-xl hover:bg-black/20 hover:cursor-pointer block', 'hover:bg-red-500/20' => $like])
                             x-on:click.stop>
@@ -57,7 +57,11 @@
                                 @endif
                             </span>
                         </div>
-                    @endif
+                    @endif --}}
+            
+                    <div class="bg-gradient-to-b from-black/25 to-transparent absolute top-0 left-0 right-0 group-hover:flex justify-end hidden">
+                        <livewire:components.like :id="$image->id" fillColorWhite="{{ true }}"/>
+                    </div>
                     @else
                     <div class="bg-gradient-to-t from-black/25 to-transparent absolute bottom-0 left-0 right-0 py-2 px-3 hidden group-hover:flex gap-x-3 items-center">
                         <p class="text-white">{{ $image->title }}</p>
@@ -67,7 +71,7 @@
             @endforeach
         </div>
         <div x-show="detail" class="fixed top-0 left-0 right-0 bottom-0 bg-black/20 flex justify-center z-20 overflow-y-scroll" x-cloak>
-            <livewire:components.gallery-image-detail :like="$like" />
+            <livewire:components.gallery-image-detail />
         </div>
         <div class="mx-5">
             {{ $images->links() }}
